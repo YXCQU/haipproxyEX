@@ -22,7 +22,7 @@ HTTPCACHE_ENABLED = False
 GFW_PROXY = 'http://127.0.0.1:8123'
 
 # splash settings.If you use docker-compose,SPLASH_URL = 'http://splash:8050'
-SPLASH_URL = 'http://splash:8050'
+SPLASH_URL = 'http://127.0.0.1:8050'
 
 # extension settings
 RETRY_ENABLED = False
@@ -53,7 +53,7 @@ LOG_FILE = 'logs/haipproxy.log'
 # redis settings.If you use docker-compose, REDIS_HOST = 'redis'
 REDIS_HOST = '127.0.0.1'
 REDIS_PORT = 6379
-REDIS_PASSWORD = '123456'
+REDIS_PASSWORD = ''
 DEFAULT_REDIS_DB = 0
 META_DATA_DB = 0
 
@@ -86,14 +86,12 @@ TEMP_HTTP_QUEUE = 'haipproxy:http:temp'
 TEMP_HTTPS_QUEUE = 'haipproxy:https:temp'
 TEMP_WEIBO_QUEUE = 'haipproxy:weibo:temp'
 TEMP_ZHIHU_QUEUE = 'haipproxy:zhihu:temp'
-TEMP_TYC_QUEUE = 'haipproxy:tyc:temp'
 
 # valited queues are zsets.squid and other clients fetch ip resources from them.
 VALIDATED_HTTP_QUEUE = 'haipproxy:validated:http'
 VALIDATED_HTTPS_QUEUE = 'haipproxy:validated:https'
 VALIDATED_WEIBO_QUEUE = 'haipproxy:validated:weibo'
 VALIDATED_ZHIHU_QUEUE = 'haipproxy:validated:zhihu'
-VALIDATED_TYC_QUEUE = 'haipproxy:validated:tyc'
 
 # time to life of proxy ip resources
 TTL_VALIDATED_RESOURCE = 2  # minutes
@@ -101,14 +99,12 @@ TTL_HTTP_QUEUE = 'haipproxy:ttl:http'
 TTL_HTTPS_QUEUE = 'haipproxy:ttl:https'
 TTL_WEIBO_QUEUE = 'haipproxy:ttl:weibo'
 TTL_ZHIHU_QUEUE = 'haipproxy:ttl:zhihu'
-TTL_TYC_QUEUE = 'haipproxy:ttl:tyc'
 
 # queue for proxy speed
 SPEED_HTTP_QUEUE = 'haipproxy:speed:http'
 SPEED_HTTPS_QUEUE = 'haipproxy:speed:https'
 SPEED_WEIBO_QUEUE = 'haipproxy:speed:weibo'
 SPEED_ZHIHU_QUEUE = 'haipproxy:speed:zhihu'
-SPEED_TYC_QUEUE = 'haipproxy:speed:tyc'
 
 # squid settings on linux os
 # execute sudo chown -R $USER /etc/squid/ and
