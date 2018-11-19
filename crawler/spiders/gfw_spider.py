@@ -12,7 +12,7 @@ from .common_spider import CommonSpider
 
 class GFWSpider(CommonSpider):
     name = 'gfw'
-    proxy_mode = 2
+    proxy_mode = 0
     task_queue = SPIDER_GFW_TASK
 
     def parse(self, response):

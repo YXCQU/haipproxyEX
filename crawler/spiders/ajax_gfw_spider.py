@@ -9,7 +9,7 @@ from .base import BaseSpider
 
 class AjaxGFWSpider(BaseSpider, RedisAjaxSpider):
     name = 'ajax_gfw'
-    proxy_mode = 2
+    proxy_mode = 0
     task_queue = SPIDER_AJAX_GFW_TASK
 
     def parse(self, response):
