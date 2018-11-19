@@ -13,13 +13,11 @@ from config.settings import (
     VALIDATED_WEIBO_QUEUE, TTL_WEIBO_QUEUE,
     SPEED_WEIBO_QUEUE, TEMP_ZHIHU_QUEUE,
     VALIDATED_ZHIHU_QUEUE, TTL_ZHIHU_QUEUE,
-    SPEED_ZHIHU_QUEUE)
-
+    SPEED_ZHIHU_QUEUE, TEMP_TYC_QUEUE, VALIDATED_TYC_QUEUE, TTL_TYC_QUEUE, SPEED_TYC_QUEUE)
 
 __all__ = ['CRWALER_TASKS', 'VALIDATOR_TASKS', 'CRAWLER_TASK_MAPS',
            'TEMP_TASK_MAPS', 'SCORE_MAPS', 'TTL_MAPS',
            'SPEED_MAPS']
-
 
 CRWALER_TASKS = [
     {
@@ -338,7 +336,6 @@ CRWALER_TASKS = [
     },
 ]
 
-
 # validator scheduler will fetch tasks from task queue and store into resource
 VALIDATOR_TASKS = [
     {
@@ -369,6 +366,13 @@ VALIDATOR_TASKS = [
         'internal': 20,
         'enable': 1,
     },
+    {
+        'name': 'tyc',
+        'task_queue': TEMP_TYC_QUEUE,
+        'resource': VALIDATED_TYC_QUEUE,
+        'internal': 20,
+        'enable': 1,
+    },
 ]
 
 # crawlers will fetch tasks from the following queues
@@ -385,9 +389,9 @@ TEMP_TASK_MAPS = {
     'http': TEMP_HTTP_QUEUE,
     'https': TEMP_HTTPS_QUEUE,
     'weibo': TEMP_WEIBO_QUEUE,
-    'zhihu': TEMP_ZHIHU_QUEUE
+    'zhihu': TEMP_ZHIHU_QUEUE,
+    'tyc': TEMP_TYC_QUEUE
 }
-
 
 # todo the three maps may be combined in one map
 # validator scheduler and clients will fetch proxies from the following queues
@@ -395,7 +399,8 @@ SCORE_MAPS = {
     'http': VALIDATED_HTTP_QUEUE,
     'https': VALIDATED_HTTPS_QUEUE,
     'weibo': VALIDATED_WEIBO_QUEUE,
-    'zhihu': VALIDATED_ZHIHU_QUEUE
+    'zhihu': VALIDATED_ZHIHU_QUEUE,
+    'tyc': VALIDATED_TYC_QUEUE
 }
 
 # validator scheduler and clients will fetch proxies from the following queues which are verified recently
@@ -403,13 +408,14 @@ TTL_MAPS = {
     'http': TTL_HTTP_QUEUE,
     'https': TTL_HTTPS_QUEUE,
     'weibo': TTL_WEIBO_QUEUE,
-    'zhihu': TTL_ZHIHU_QUEUE
+    'zhihu': TTL_ZHIHU_QUEUE,
+    'tyc': TTL_TYC_QUEUE
 }
 
 SPEED_MAPS = {
     'http': SPEED_HTTP_QUEUE,
     'https': SPEED_HTTPS_QUEUE,
     'weibo': SPEED_WEIBO_QUEUE,
-    'zhihu': SPEED_ZHIHU_QUEUE
+    'zhihu': SPEED_ZHIHU_QUEUE,
+    'tyc': SPEED_TYC_QUEUE
 }
-

@@ -14,7 +14,6 @@ from utils import get_redis_conn
 from config.settings import (
     VALIDATOR_FEED_SIZE, SPIDER_FEED_SIZE)
 
-
 configure_logging(install_root_handler=True)
 __all__ = ['RedisSpider', 'RedisAjaxSpider',
            'RedisCrawlSpider', 'ValidatorRedisSpider']
@@ -104,6 +103,7 @@ class RedisAjaxSpider(RedisSpider):
 
 class ValidatorRedisSpider(RedisSpider):
     """Scrapy only supports https and http proxy"""
+
     def setup_redis(self, crawler):
         super().setup_redis(crawler)
         self.redis_batch_size = VALIDATOR_FEED_SIZE
@@ -128,4 +128,3 @@ class ValidatorRedisSpider(RedisSpider):
 
     def parse_error(self, failure):
         raise NotImplementedError
-

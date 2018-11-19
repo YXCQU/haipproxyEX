@@ -86,12 +86,14 @@ TEMP_HTTP_QUEUE = 'haipproxy:http:temp'
 TEMP_HTTPS_QUEUE = 'haipproxy:https:temp'
 TEMP_WEIBO_QUEUE = 'haipproxy:weibo:temp'
 TEMP_ZHIHU_QUEUE = 'haipproxy:zhihu:temp'
+TEMP_TYC_QUEUE = 'haipproxy:tyc:temp'
 
 # valited queues are zsets.squid and other clients fetch ip resources from them.
 VALIDATED_HTTP_QUEUE = 'haipproxy:validated:http'
 VALIDATED_HTTPS_QUEUE = 'haipproxy:validated:https'
 VALIDATED_WEIBO_QUEUE = 'haipproxy:validated:weibo'
 VALIDATED_ZHIHU_QUEUE = 'haipproxy:validated:zhihu'
+VALIDATED_TYC_QUEUE = 'haipproxy:validated:tyc'
 
 # time to life of proxy ip resources
 TTL_VALIDATED_RESOURCE = 2  # minutes
@@ -99,12 +101,14 @@ TTL_HTTP_QUEUE = 'haipproxy:ttl:http'
 TTL_HTTPS_QUEUE = 'haipproxy:ttl:https'
 TTL_WEIBO_QUEUE = 'haipproxy:ttl:weibo'
 TTL_ZHIHU_QUEUE = 'haipproxy:ttl:zhihu'
+TTL_TYC_QUEUE = 'haipproxy:ttl:tyc'
 
 # queue for proxy speed
 SPEED_HTTP_QUEUE = 'haipproxy:speed:http'
 SPEED_HTTPS_QUEUE = 'haipproxy:speed:https'
 SPEED_WEIBO_QUEUE = 'haipproxy:speed:weibo'
 SPEED_ZHIHU_QUEUE = 'haipproxy:speed:zhihu'
+SPEED_TYC_QUEUE = 'haipproxy:speed:tyc'
 
 # squid settings on linux os
 # execute sudo chown -R $USER /etc/squid/ and
