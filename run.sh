@@ -1,4 +1,5 @@
 #!/bin/bash
+source /root/env3/bin/activate
 nohup python crawler_booter.py --usage crawler common > crawler.log 2>&1 &
 nohup python scheduler_booter.py --usage crawler common > crawler_scheduler.log 2>&1 &
 nohup python crawler_booter.py --usage validator init > init_validator.log 2>&1 &
