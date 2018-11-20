@@ -10,7 +10,7 @@ class TYCValidator(BaseValidator, ValidatorRedisSpider):
     name = 'tyc'
     # 需要验证的URL，建议选择一个稳定且有代表意义的url，数据结构是一个list
     urls = [
-        'https://www.tianyancha.com/search?key=editorai'
+        'https://m.tianyancha.com/search?key=editorai'
     ]
     # 下面四个属性必须设置，并且与maps中的一致
     task_queue = TEMP_TYC_QUEUE
@@ -18,4 +18,4 @@ class TYCValidator(BaseValidator, ValidatorRedisSpider):
     ttl_queue = TTL_TYC_QUEUE
     speed_queue = SPEED_TYC_QUEUE
     # 判断success_key是否在响应内容中，从而判断IP是否正常，默认为''，表示正常
-    success_key = 'editorai'
+    success_key = '2016-05-11'
