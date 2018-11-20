@@ -18,4 +18,4 @@ class TYCValidator(BaseValidator, ValidatorRedisSpider):
     ttl_queue = TTL_TYC_QUEUE
     speed_queue = SPEED_TYC_QUEUE
     # 判断success_key是否在响应内容中，从而判断IP是否正常，默认为''，表示正常
-    success_key = '惠州市丹翰云端科技有限责任公司'
+    success_key = 'editorai'
