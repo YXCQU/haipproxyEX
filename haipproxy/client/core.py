@@ -4,7 +4,7 @@ This module provides core code for picking up proxies
 import time
 
 # from logger import client_logger
-from ..utils import decode_all
+from haipproxy.utils import decode_all
 
 
 class IPFetcherMixin:
