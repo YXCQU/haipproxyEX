@@ -1,18 +1,19 @@
-# HAipproxy
+# 高可用IP代理池
 [README](README_EN.md)　｜　[中文文档](README.md)
 
 本项目所采集的IP资源都来自互联网，愿景是为大型爬虫项目提供一个**高可用低延迟的高匿IP代理池**。
 
-# Features
-- 快速抓取代理IP
-- IP抓取和提取精准
-- IP来源丰富
-- 优良的IP校验器，并且容易根据自身需要扩展
-- 支持分布式部署
-- 架构设计灵活
-- MIT授权协议
+# 项目亮点
+- 代理来源丰富
+- 代理抓取提取精准
+- 代理校验严格合理
+- 监控完备，鲁棒性强
+- 架构灵活，便于扩展
+- 各个组件分布式部署
 
-# Quick start
+# 快速开始
+
+注意，代码请在[release](https://github.com/SpiderClub/haipproxy/releases)列表中下载，**master**分支的代码不保证能稳定运行
 
 ## 单机部署
 
@@ -32,7 +33,7 @@
   > python scheduler_booter.py --usage validator
 
 ### 客户端
-近日不断有同学问，如何获取该项目中可用的代理IP列表。`haipproxy`提供代理的方式并不是通过`web api`来提供，而是通过具体的客户端来提供。
+近日不断有同学问，如何获取该项目中可用的代理IP列表。`haipproxy`提供代理的方式并不是通过`api api`来提供，而是通过具体的客户端来提供。
 目前支持的是[Python客户端](client/py_cli.py)和语言无关的[squid二级代理](client/squid.py)
 
 #### python客户端调用示例 
@@ -41,7 +42,7 @@ from client.py_cli import ProxyFetcher
 args = dict(host='127.0.0.1', port=6379, password='123456', db=0)
 ＃　这里`zhihu`的意思是，去和`zhihu`相关的代理ip校验队列中获取ip
 ＃　这么做的原因是同一个代理IP对不同网站代理效果不同
-fetcher = ProxyFetcher('zhihu', strategy='greedy', length=5, redis_args=args)
+fetcher = ProxyFetcher('zhihu', strategy='greedy', redis_args=args)
 # 获取一个可用代理
 print(fetcher.get_proxy())
 # 获取可用代理列表
@@ -54,7 +55,7 @@ print(fetcher.get_proxies()) # or print(fetcher.pool)
 - 安装squid，备份squid的配置文件并且启动squid，以ubuntu为例
   > sudo apt-get install squid
 
-  > sudo sed -i 's/http_access deny all/http_access allow all/g'
+  > sudo sed -i 's/http_access deny all/http_access allow all/g' /etc/squid/squid.conf
 
   > sudo cp /etc/squid/squid.conf /etc/squid/squid.conf.backup
 
@@ -98,43 +99,32 @@ print(fetcher.get_proxies()) # or print(fetcher.pool)
 # 工作流程
 ![](static/workflow.png)
 
-# 开发者文档
-为了方便用户针对自身需求进行定制化，`haipproxy`提供了丰富的文档支持。所有文档详见[项目wiki](https://github.com/SpiderClub/haipproxy/wiki)
-
 # 效果测试
-以单机模式部署`haipproxy`和[测试代码](examples/zhihu/zhihu_spider.py)，以知乎为目标请求站点，
-每一万条成功请求为统计结果，实测抓取效果如下
+以单机模式部署`haipproxy`和[测试代码](examples/zhihu/zhihu_spider.py)，以知乎为目标请求站点，实测抓取效果如下
 
-|请求量|时间|耗时|IP负载策略|客户端|
-|-----|----|---|---------|-----|
-|0|2018/03/03 22:03|0|greedy|[py_cli](client/py_cli.py)|
-|10000|2018/03/03 11:03|1 hour|greedy|[py_cli](client/py_cli.py)|
-|20000|2018/03/04 00:08|2 hours|greedy|[py_cli](client/py_cli.py)|
-|30000|2018/03/04 01:02|3 hours|greedy|[py_cli](client/py_cli.py)|
-|40000|2018/03/04 02:15|4 hours|greedy|[py_cli](client/py_cli.py)|
-|50000|2018/03/04 03:03|5 hours|greedy|[py_cli](client/py_cli.py)|
-|60000|2018/03/04 05:18|7 hours|greedy|[py_cli](client/py_cli.py)|
-|70000|2018/03/04 07:11|9 hours|greedy|[py_cli](client/py_cli.py)|
-|80000|2018/03/04 08:43|11 hours|greedy|[py_cli](client/py_cli.py)|
-
-
-可见`haipporxy`的代理效果还算不错，在开始的时候可以达到`1w/hour`的请求量，几个小时候请求量请求量
-降为了`5k/hour`。降低的结果可能有三个: (1)随着数据量的增大,Redis的性能受到了一定的影响(2)知乎校验
-器在把`Init Queue`中的代理消费完之后，由于是定时任务，所以导致某段时间内新鲜的IP空缺。而免费IP大多
-数都是短效的，所以这段时间出现了IP的空缺;(3)由于我们采用的是`greedy`模式调用IP，它的调用策略是: 高
-质量代理IP会一直被调用直至该代理IP不能用或者被封，而低应速度IP会轮询调用。这也可能导致高质量IP的空缺。
-
-由此可见IP校验和调用策略还有很大的优化空间。希望能有志同道合的朋友加入进来一起优化。
+![](./static/zhihu.png)
 
 测试代码见[examples/zhihu](examples/zhihu/zhihu_spider.py)
 
-# 如何贡献
-- 欢迎给项目提新feature
-- 如果发现项目某些环节有问题，欢迎提issue或者PR
-- 代理IP校验和筛选的策略仍有优化的空间，欢迎大家交流探讨
-- 如果你发现了比较好的代理网站，欢迎分享
+# 项目监控(可选)
+项目监控主要通过[sentry](https://sentry.io/welcome/)和[prometheus](https://prometheus.io/),通过在关键地方
+进行业务埋点对项目各个维度进行监测，以提高项目的鲁棒性
 
-# 同类项目参考
+项目使用[Sentry](https://sentry.io/welcome/)作`Bug Trace`工具，通过Sentry可以很容易跟踪项目健康情况
+
+![](./static/bug_trace.jpg)
+
+
+使用[Prometheus](https://prometheus.io/)+[Grafana](https://grafana.com/)做业务监控，了解项目当前状态
+
+![](./static/monitor.png)
+
+# 捐赠作者
+开源不易，如果本项目对您有用，不妨进行小额捐赠，以支持项目的持续维护
+
+![](./static/donate.jpg)
+
+# 同类项目
 本项目参考了Github上开源的各个爬虫代理的实现，感谢他们的付出，下面是笔者参考的所有项目，排名不分先后。
 
 [dungproxy](https://github.com/virjar/dungproxy)
@@ -155,3 +145,6 @@ print(fetcher.get_proxies()) # or print(fetcher.pool)
 
 [proxy_pool](https://github.com/lujqme/proxy_pool)
 
+[ProxyPool](https://github.com/fengzhizi715/ProxyPool)
+
+[scylla](https://github.com/imWildCat/scylla)

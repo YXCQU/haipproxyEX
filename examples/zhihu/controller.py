@@ -8,6 +8,10 @@ from bs4 import BeautifulSoup as BS
 
 from haipproxy.utils import get_redis_conn
 from examples.zhihu.crawler import Crawler
+from examples.zhihu.configs import (
+    REDIS_HOST, REDIS_PORT,
+    REDIS_PASS, REDIS_DB
+)
 
 per_page = 20
 info_max_process_num = 50
@@ -20,10 +24,16 @@ info_set = 'zhihu:info:user'
 
 # Not considering concurrent security
 common_crawler = Crawler()
+redis_args = {
+    'host': REDIS_HOST,
+    'port': REDIS_PORT,
+    'password': REDIS_PASS,
+    'db': REDIS_DB
+}
 
 
 def init_db():
-    redis_client = get_redis_conn(db=1)
+    redis_client = get_redis_conn(**redis_args)
     return redis_client
 
 
