@@ -4,15 +4,15 @@ python client for haipproxy
 import time
 import threading
 
-from ..utils import get_redis_conn
-from ..config.rules import (
+from haipproxy.utils import get_redis_conn
+from haipproxy.config.rules import (
     SCORE_MAPS, TTL_MAPS,
     SPEED_MAPS)
-from ..config.settings import (
+from haipproxy.config.settings import (
     TTL_VALIDATED_RESOURCE, LONGEST_RESPONSE_TIME,
     LOWEST_SCORE, LOWEST_TOTAL_PROXIES,
     DATA_ALL)
-from .core import IPFetcherMixin
+from haipproxy.client.core import IPFetcherMixin
 
 __all__ = ['ProxyFetcher']
 
